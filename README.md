@@ -11,7 +11,7 @@ All the algorithms can be found in the file [Ext-Groups_Outer-Functors.ipynb](ht
 The algorithms are meant to be used in the following way: The first cell contains all the definitions, you will need to run this cell the first time, but after that you don't need to return to this cell, and it should not be necessary to understand the contents of this cell. The most useful functions provided are the following ones:
 
 `Compute_ExtGroups(bound, Outer = True, CompFact = None, check = True)`:
-This function implements the algorithm discussed in the proof of Theorem 4.11, to compute Euler characteristics of the Ext groups $Ext(a^n, a^m)$ from the composition factors of $\omega\beta\Q\mathfrak{S}_n$. It tends to take a rather long time to execute this function, it is recommended to only call it once. This function computes all the Euler characteristics at the same time, it is recommended to use the next function to see the results. This function takes the following parameters:
+This function implements the algorithm discussed in the proof of Theorem 4.11, to compute Euler characteristics of the Ext groups $Ext(a^n, a^m)$ from the composition factors of $\omega\beta\mathbb{Q}\mathfrak{S}_n$. It tends to take a rather long time to execute this function, it is recommended to only call it once. This function computes all the Euler characteristics at the same time, it is recommended to use the next function to see the results. This function takes the following parameters:
 - `bound`: Positive integer, indicates the range of Ext groups which get computed. If the other parameters are set to their default, then `bound` cannot exceed the value $10$. Even if the boolean parameters are set to other values, be aware that for values of `bound` larger than `10` the computations start to take a rather long time.
 - `Outer`: boolean, set to `True` by default, in which case the function outputs the Euler characteristic for Ext groups of outer functors. If set to `False`, then the function computes Ext groups in the category of all functors on free groups, see [Extensions between functors from free groups](https://londmathsoc.onlinelibrary.wiley.com/doi/full/10.1112/blms.12091) for more details about these.
 - `CompFact`: Optional parameter, can be used to provide the composition factors needed for the algorithm. By default, they will be computed within the function, but if you want to keep access to these composition factors you can compute them separately and give them to the function. Unless you know what you are doing, you should call the function `All_Composition_Factors` to compute them (and you should be sure that the parameter `Outer` is the same for both functions).
@@ -28,15 +28,15 @@ This function can be used to find the values of the partitions $(\nu, \lambda)$ 
 
 `Compare_ExtGroups(ExtOut, ExtAll, diff, n)`:
 This function implements the formula for $\chi(Ext(a^n, a^{n+diff}))$ of Remark 4.23, and provides as output a pair containing the result of this formula and the missing terms. It takes the following parameters:
-`ExtOut`: All the Euler characteristics of Ext groups in the category of outer functors. Should be computed from `Compute_ExtGroups` with the parameter `bound` having value at least `n+diff`.
-`ExtAll`: All the Euler characteristics of Ext groups in the category of all functors. Should be computed from `Compute_ExtGroups` with the parameter `bound` having value at least `n+diff`, and the parameter `Outer` set to `False`.
-`diff`, `n`: integer parameters, determine the degrees.
+- `ExtOut`: All the Euler characteristics of Ext groups in the category of outer functors. Should be computed from `Compute_ExtGroups` with the parameter `bound` having value at least `n+diff`.
+- `ExtAll`: All the Euler characteristics of Ext groups in the category of all functors. Should be computed from `Compute_ExtGroups` with the parameter `bound` having value at least `n+diff`, and the parameter `Outer` set to `False`.
+- `diff`, `n`: integer parameters, determine the degrees.
 
 `Text_Form(SymFunc)`:
 This function can be used to visualize some of the results; it creates a string which is more compact that the default display of Sage. 
 
 `All_Composition_Factors(bound, Outer = True, Partial = False)`:
-This function is used to compute the graded pieces $(\omega\beta\Q\mathfrak{S}_n)^{[p]}$, which are needed for the function `Compute_ExtGroups`. The majority of the code for this function comes from [Configuration spaces on a wedge of spheres and Hochschild–Pirashvili homology](https://ahl.centre-mersenne.org/item/AHL_2024__7__841_0/). It takes the following parameters:
-`bound`: non-negative integer, determines which is the largest value of $n$ which gets computed. Note that if the parameter `Outer` is set to `True` then `bound` should not exceed the value $10$, as then the some of the results computed will be incorrect.
-`Outer`: boolen, set to `True` by default, in which case the function computes the graded pieces $(\omega\beta\Q\mathfrak{S}_n)^{[p]}$. If set to `False`, then the function computes $(\beta\Q\mathfrak{S}_n)^{[p]}$ instead.
-`Partial`: boolen, set to `False` by default. Unless you know what you are doing, it is not recommended to set this parameter to `True`.
+This function is used to compute the graded pieces $(\omega\beta\mathbb{Q}\mathfrak{S}_n)^{[p]}$, which are needed for the function `Compute_ExtGroups`. The majority of the code for this function comes from [Configuration spaces on a wedge of spheres and Hochschild–Pirashvili homology](https://ahl.centre-mersenne.org/item/AHL_2024__7__841_0/). It takes the following parameters:
+- `bound`: non-negative integer, determines which is the largest value of $n$ which gets computed. Note that if the parameter `Outer` is set to `True` then `bound` should not exceed the value $10$, as then the some of the results computed will be incorrect.
+- `Outer`: boolen, set to `True` by default, in which case the function computes the graded pieces $(\omega\beta\mathbb{Q}\mathfrak{S}_n)^{[p]}$. If set to `False`, then the function computes $(\beta\mathbb{Q}\mathfrak{S}_n)^{[p]}$ instead.
+- `Partial`: boolean, set to `False` by default. Unless you know what you are doing, it is not recommended to set this parameter to `True`.
